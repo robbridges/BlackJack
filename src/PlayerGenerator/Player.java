@@ -26,5 +26,17 @@ public interface Player {
 
     public int getValue(Card card);
 
+    public boolean isDealtAce(Card card);
+
+    public int returnCurrentScore();
+
+    public String getmName();
+
+    public int getCurrentScore();
+
+
+
+
+
 
 }

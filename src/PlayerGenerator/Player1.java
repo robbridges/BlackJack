@@ -14,19 +14,11 @@ import java.util.ArrayList;
 public class Player1 implements Player {
 
     private String mName;
-
-    public int getCurrentScore() {
-        return currentScore;
-    }
-
     private int currentScore;
     private int mHandsWon;
     private int bankCount;
-
-    public ArrayList<Card> getPlayer1CardList() {
-        return player1CardList;
-    }
-
+    int firstCardScore;
+    int secondCardScore;
     private ArrayList<Card> player1CardList;
     Card card;
 
@@ -54,9 +46,6 @@ public class Player1 implements Player {
         return mName;
     }
 
-    public int getmScore() {
-        return mScore;
-    }
 
 
 
@@ -67,9 +56,14 @@ public class Player1 implements Player {
     public void setmHandsWon(int mHandsWon) {
         this.mHandsWon = mHandsWon;
     }
-
+    @Override
     public String getmName() {
         return mName;
+    }
+
+    @Override
+    public int getCurrentScore() {
+        return currentScore;
     }
 
     public void setmName(String mName) {
@@ -84,8 +78,7 @@ public class Player1 implements Player {
     }
 
     public int setCurrentScore(ArrayList<Card> player1CardList) {
-
-        for (Card card: player1CardList) {
+        for (Card card : player1CardList) {
             currentScore = 0;
             currentScore += getValue(card);
         }
@@ -133,6 +126,21 @@ public class Player1 implements Player {
     }
 
     @Override
+    public boolean isDealtAce(Card card) {
+        if (getValue(card) == 11) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    @Override
+    public int returnCurrentScore() {
+        return currentScore;
+    }
+
+    @Override
     public boolean hasWon() {
         if (this.currentScore == 21) {
             return true;
@@ -157,11 +165,16 @@ public class Player1 implements Player {
         }
     }
 
+
     @Override
     public void arrayListCreate() {
         if (player1CardList == null) {
             player1CardList = new ArrayList<>();
         }
+    }
+
+    public ArrayList<Card> getPlayer1CardList() {
+        return player1CardList;
     }
 
 

@@ -9,6 +9,8 @@ import java.util.ArrayList;
  * Created by Robert on 9/27/2015.
  */
 public class Dealer implements Player {
+    int firstCardScore;
+    int secondCardScore;
     public String mName = "Dealer";
     public int mHandsWon;
     private int currentScore;
@@ -41,8 +43,7 @@ public class Dealer implements Player {
         }
     }
     public int setCurrentScore(ArrayList<Card> player1CardList) {
-
-        for (Card card: player1CardList) {
+        for (Card card : player1CardList) {
             currentScore = 0;
             currentScore += getValue(card);
         }
@@ -86,6 +87,31 @@ public class Dealer implements Player {
 
         }
         return cardNumericalValue;
+    }
+
+    @Override
+    public boolean isDealtAce(Card card) {
+        if (getValue(card) == 11) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    @Override
+    public int returnCurrentScore() {
+        return currentScore;
+    }
+
+    @Override
+    public String getmName() {
+        return mName;
+    }
+
+    @Override
+    public int getCurrentScore() {
+        return currentScore;
     }
 
     @Override

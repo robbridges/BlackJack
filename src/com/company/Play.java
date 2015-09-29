@@ -7,6 +7,9 @@ import PlayerGenerator.Player;
 import PlayerGenerator.Player1;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -16,23 +19,26 @@ public class Play {
 
     private int mPlayerScore;
     private int mDealerScore;
-    ArrayList<Card> cardDeck;
-    Card card;
-    Card dealerFaceDown;
-    Dealer dealer = new Dealer();
-    Player1 inputPlayer = new Player1();
-    Player1 player1 = inputPlayer.returnPlayer();
+    private ArrayList<Card> cardDeck;
+    private Card card;
+    private Card dealerFaceDown;
+    private Dealer dealer = new Dealer();
+    private Player1 inputPlayer = new Player1();
+    private Player1 player1 = inputPlayer.returnPlayer();
+    String playerAnswer;
+    String acceptableAnswer;
+    int aceValue;
 
 
     public void playGame(ArrayList cardDeck) {
         dealCards(cardDeck, 0);
         dealCards(cardDeck, 1);
         dealDealerFaceDown(cardDeck);
-        if (dealer.hasWon()) {
+        if (hasWon(dealer)) {
             System.out.println("The dealer shows 21, you lose this hand.");
         }
         dealCards(cardDeck,3);
-        if (player1.hasWon()) {
+        if (hasWon(player1)) {
             System.out.println("WINNER WINNER CHICKEN DINNER!");
         }
 
@@ -48,7 +54,10 @@ public class Play {
         if (isEven(turnNumber)) {
             System.out.printf("Dealer is dealt %s of %s \n", card.getValue(), card.getSuit());
             dealer.addCardsToHand(card);
-            mDealerScore += dealer.setCurrentScore(dealer.getDealerCards());
+            mDealerScore +=dealer.setCurrentScore(dealer.getDealerCards());
+            /*if (dealer.isDealtAce(card)) {
+                selectAce(dealer);
+            }*/
             cardDeck.remove(card);
             System.out.printf("Dealer currently sits at %d \n", getmDealerScore());
         }
@@ -56,6 +65,9 @@ public class Play {
             System.out.printf("%s is dealt %s of %s \n",player1.getmName(), card.getValue(), card.getSuit());
             player1.addCardsToHand(card);
             mPlayerScore += player1.setCurrentScore(player1.getPlayer1CardList());
+            /*if (player1.isDealtAce(card)) {
+                selectAce(player1);
+            }*/
             cardDeck.remove(card);
             System.out.printf("%s currently sits at %d \n",player1.getmName(), getmPlayerScore());
 
@@ -71,6 +83,9 @@ public class Play {
         card = cardDeck.get(2);
         dealer.addCardsToHand(card);
         mDealerScore += dealer.setCurrentScore(dealer.getDealerCards());
+        //if (dealer.isDealtAce(card)) {
+            //selectAce(dealer);
+        //}
         cardDeck.remove(card);
         System.out.println("The dealer deals himself a face-down Card");
     }
@@ -85,46 +100,41 @@ public class Play {
         }
     }
 
+    /*public int SelectAceValue(Player player) {
+        acceptableAnswer= "1 11";
+        if (player.isDealtAce(card)) {
+            System.out.printf("%s player is dealt ace do you want the value to be one or zero?", player.getmName());
+            while (!playerAnswer.contains(acceptableAnswer)) {
+                playerAnswer =reader.readLine();
+                if (!playerAnswer.contains(acceptableAnswer)) {
+                    System.out.println("That is not an acceptable answer please choose 1 or 11");
+                }
+            }
+            if (playerAnswer.equalsIgnoreCase("1")) {
+                player.returnCurrentScore() -= 10;
 
-
-    public int getvalue() {
-        String cardValue = card.getValue().toString();
-        int cardNumericalValue = 0;
-        switch (cardValue) {
-            case "ONE": cardNumericalValue = 1;
-                break;
-            case "TWO": cardNumericalValue = 2;
-                break;
-            case "THREE": cardNumericalValue = 3;
-                break;
-            case "FOUR": cardNumericalValue = 4;
-                break;
-            case "FIVE": cardNumericalValue = 5;
-                break;
-            case "SIX": cardNumericalValue = 6;
-                break;
-            case "SEVEN": cardNumericalValue = 7;
-                break;
-            case "EIGHT": cardNumericalValue = 8;
-                break;
-            case "NINE": cardNumericalValue = 9;
-                break;
-            case "TEN": cardNumericalValue = 10;
-                break;
-            case "JACK": cardNumericalValue = 10;
-                break;
-            case "QUEEN": cardNumericalValue = 10;
-                break;
-            case "KING": cardNumericalValue = 10;
-                break;
-            case "ACE": cardNumericalValue = 11;
-                break;
-            default: break;
+            }
 
         }
-        return cardNumericalValue;
+    }*/
+
+    public boolean hasWon(Player player) {
+        if (player.returnCurrentScore() == 21) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
+    public boolean isDealtAce(Card card) {
+        if (card.getValue().toString().equalsIgnoreCase("ACE")) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     public int getmPlayerScore() {
         return mPlayerScore;
