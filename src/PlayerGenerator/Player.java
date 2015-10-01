@@ -13,10 +13,11 @@ public interface Player {
     public int mHandsWon = 0;
     public int mBet= 0;
     public int bankCount = 0;
+    public int aceDevalueCount = 0;
 
 
 
-    public boolean hasWon();
+
 
     public void addCardsToHand(Card card);
 
@@ -28,11 +29,15 @@ public interface Player {
 
     public boolean isDealtAce(Card card);
 
-    public int returnCurrentScore();
-
     public String getmName();
 
     public int getCurrentScore();
+
+    public int getAceDevalueCount();
+    public void setAceDevalueCount(int aceDevalueCount);
+
+
+
 
 
 

@@ -16,6 +16,7 @@ public class Dealer implements Player {
     private int currentScore;
     private ArrayList<Card> dealerCards;
     Card card;
+    public int aceDevalueCount;
 
 
 
@@ -33,20 +34,9 @@ public class Dealer implements Player {
 
 
 
-    @Override
-    public boolean hasWon() {
-        if (currentScore == 21) {
-            return true;
-        }
-        else {
-        return false;
-        }
-    }
-    public int setCurrentScore(ArrayList<Card> player1CardList) {
-        for (Card card : player1CardList) {
-            currentScore = 0;
-            currentScore += getValue(card);
-        }
+
+    public int setCurrentScore(Card card) {
+        currentScore += getValue(card);
         return currentScore;
     }
 
@@ -99,10 +89,6 @@ public class Dealer implements Player {
         }
     }
 
-    @Override
-    public int returnCurrentScore() {
-        return currentScore;
-    }
 
     @Override
     public String getmName() {
@@ -113,6 +99,18 @@ public class Dealer implements Player {
     public int getCurrentScore() {
         return currentScore;
     }
+
+    @Override
+    public int getAceDevalueCount() {
+        return aceDevalueCount;
+    }
+
+    @Override
+    public void setAceDevalueCount(int aceDevalueCount) {
+        this.aceDevalueCount = aceDevalueCount;
+
+    }
+
 
     @Override
     public void addCardsToHand(Card card) {
@@ -128,6 +126,8 @@ public class Dealer implements Player {
             System.out.printf("%s, of %s \n", card.getValue(), card.getSuit());
         }
     }
+
+
 
     public void arrayListCreate() {
         if (dealerCards == null) {

@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
+
 /**
  * Created by Robert on 9/27/2015.
  */
@@ -21,6 +22,9 @@ public class Player1 implements Player {
     int secondCardScore;
     private ArrayList<Card> player1CardList;
     Card card;
+    int aceDevalueCount;
+    InputStreamReader isr = new InputStreamReader(System.in);
+    BufferedReader reader = new BufferedReader(isr);
 
 
     public Player1 returnPlayer() {
@@ -31,8 +35,7 @@ public class Player1 implements Player {
 
 
     public String askPlayersName() {
-        try( InputStreamReader isr = new InputStreamReader(System.in);
-             BufferedReader reader = new BufferedReader(isr))
+        try
          {
             System.out.println("Greetings, what is your name player1?");
              mName = reader.readLine();
@@ -66,6 +69,8 @@ public class Player1 implements Player {
         return currentScore;
     }
 
+
+
     public void setmName(String mName) {
         this.mName = mName;
     }
@@ -77,11 +82,8 @@ public class Player1 implements Player {
         this.bankCount = bankCount;
     }
 
-    public int setCurrentScore(ArrayList<Card> player1CardList) {
-        for (Card card : player1CardList) {
-            currentScore = 0;
-            currentScore += getValue(card);
-        }
+    public int setCurrentScore(Card card) {
+        currentScore += getValue(card);
         return currentScore;
     }
 
@@ -135,20 +137,7 @@ public class Player1 implements Player {
         }
     }
 
-    @Override
-    public int returnCurrentScore() {
-        return currentScore;
-    }
 
-    @Override
-    public boolean hasWon() {
-        if (this.currentScore == 21) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
 
     @Override
     public void addCardsToHand(Card card) {
@@ -171,6 +160,14 @@ public class Player1 implements Player {
         if (player1CardList == null) {
             player1CardList = new ArrayList<>();
         }
+    }
+    @Override
+    public int getAceDevalueCount() {
+        return aceDevalueCount;
+    }
+    @Override
+    public void setAceDevalueCount(int aceDevalueCount) {
+        this.aceDevalueCount = aceDevalueCount;
     }
 
     public ArrayList<Card> getPlayer1CardList() {
