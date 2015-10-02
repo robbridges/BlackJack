@@ -135,6 +135,24 @@ public class Dealer implements Player {
         }
     }
 
+    public boolean drawCard() {
+        if (getCurrentScore() < 17) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean dealerChooseAceValue() {
+        if (getCurrentScore() <= 10) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
 
 
 

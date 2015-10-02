@@ -49,6 +49,9 @@ public class Play {
         if (hasWon(player1)) {
             System.out.println("WINNER WINNER CHICKEN DINNER!");
         }
+        if (dealer.drawCard()) {
+            dealCards(cardDeck, 4);
+        }
 
 
 
@@ -67,7 +70,10 @@ public class Play {
                 selectAceValue(dealer);
             }
             cardDeck.remove(card);
-            System.out.printf("Dealer currently sits at %d \n", getCurrentScore(dealer));
+            System.out.printf("Dealer currently sits at %d \n", dealer.getCurrentScore());
+            if (hasBusted(dealer)) {
+                System.out.println("dealer has busted, you win!");
+            }
         }
         else {
             System.out.printf("%s is dealt %s of %s \n",player1.getmName(), card.getValue(), card.getSuit());
@@ -77,16 +83,26 @@ public class Play {
                 selectAceValue(player1);
             }
             cardDeck.remove(card);
-            System.out.printf("%s currently sits at %d  \n",player1.getmName(), getCurrentScore(player1));
+            System.out.printf("%s currently sits at %d  \n",player1.getmName(), player1.getCurrentScore());
+            if (hasBusted(player1)) {
+                System.out.println("Shucks you went over 21 and lost");
+            }
 
         }
 
-
-
-
-
-
     }
+
+    public boolean hasBusted(Player player) {
+        if(player.getCurrentScore() > 21) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+
     public void dealDealerFaceDown(ArrayList<Card> cardDeck) {
         card = cardDeck.get(2);
         dealer.addCardsToHand(card);
@@ -126,6 +142,7 @@ public class Play {
         }
         return player.getAceDevalueCount();
     }
+
 
 
 
