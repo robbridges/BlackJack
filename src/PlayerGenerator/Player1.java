@@ -18,13 +18,8 @@ public class Player1 implements Player {
     private int currentScore;
     private int mHandsWon;
     private int bankCount;
-    int firstCardScore;
-    int secondCardScore;
     private ArrayList<Card> player1CardList;
-    Card card;
-    int aceDevalueCount;
-    InputStreamReader isr = new InputStreamReader(System.in);
-    BufferedReader reader = new BufferedReader(isr);
+    private Card card;
 
 
     public Player1 returnPlayer() {
@@ -37,10 +32,12 @@ public class Player1 implements Player {
     public String askPlayersName() {
         try
          {
+             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Greetings, what is your name player1?");
              mName = reader.readLine();
             System.out.printf("I see, welcome to the table %s. " +
                     "Lets start you with %d chips \n", mName, getBankCount() );
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,7 +74,7 @@ public class Player1 implements Player {
     }
 
     @Override
-    public int setCurrentScore(Card card) {
+    public int tallyCurrentScore(Card card) {
         currentScore += getValue(card);
         return currentScore;
     }
@@ -130,6 +127,11 @@ public class Player1 implements Player {
         else {
             return false;
         }
+    }
+
+    @Override
+    public void setCurrentScore(int currentScore) {
+        this.currentScore = currentScore;
     }
 
 

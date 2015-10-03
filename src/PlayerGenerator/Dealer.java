@@ -28,7 +28,7 @@ public class Dealer implements Player {
     }
 
     @Override
-    public int setCurrentScore(Card card) {
+    public int tallyCurrentScore(Card card) {
         currentScore += getValue(card);
         return currentScore;
     }
@@ -91,6 +91,11 @@ public class Dealer implements Player {
     @Override
     public int getCurrentScore() {
         return currentScore;
+    }
+
+    @Override
+    public void setCurrentScore(int currentScore) {
+        this.currentScore = currentScore;
     }
 
     @Override

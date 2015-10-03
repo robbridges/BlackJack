@@ -27,13 +27,15 @@ public interface Player {
 
     public int getValue(Card card);
 
-    public int setCurrentScore(Card card);
+    public int tallyCurrentScore(Card card);
 
     public boolean isDealtAce(Card card);
 
     public String getmName();
 
     public int getCurrentScore();
+
+    public void setCurrentScore(int currentScore);
 
 
 

@@ -1,9 +1,7 @@
 package com.company;
 
 import CardGenerator.Card;
-import CardGenerator.DeckMaker;
 import PlayerGenerator.Dealer;
-import PlayerGenerator.Player;
 import PlayerGenerator.Player1;
 
 
@@ -48,14 +46,14 @@ public class Play {
         if (isEven(turnNumber)) {
             System.out.printf("Dealer is dealt %s of %s \n", card.getValue(), card.getSuit());
             dealer.addCardsToHand(card);
-            mDealerScore += dealer.setCurrentScore(dealer.getDealerCards());
+            mDealerScore += dealer.tallyCurrentScore(dealer.getDealerCards());
             cardDeck.remove(card);
             System.out.printf("Dealer currently sits at %d \n", getmDealerScore());
         }
         else {
             System.out.printf("%s is dealt %s of %s \n",player1.getmName(), card.getValue(), card.getSuit());
             player1.addCardsToHand(card);
-            mPlayerScore += player1.setCurrentScore(player1.getPlayer1CardList());
+            mPlayerScore += player1.tallyCurrentScore(player1.getPlayer1CardList());
             cardDeck.remove(card);
             System.out.printf("%s currently sits at %d \n",player1.getmName(), getmPlayerScore());
 
@@ -70,7 +68,7 @@ public class Play {
     public void dealDealerFaceDown(ArrayList<Card> cardDeck) {
         card = cardDeck.get(2);
         dealer.addCardsToHand(card);
-        mDealerScore += dealer.setCurrentScore(dealer.getDealerCards());
+        mDealerScore += dealer.tallyCurrentScore(dealer.getDealerCards());
         cardDeck.remove(card);
         System.out.println("The dealer deals himself a face-down Card");
     }
