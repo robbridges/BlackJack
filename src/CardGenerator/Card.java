@@ -17,16 +17,12 @@ public class Card {
 
     public CardSuit getSuit() {
         return suit;
-    }
+    } // returns the suit of the card
 
-    public void setSuit(CardSuit suit) {
-        this.suit = suit;
-    }
+
     public CardValue getValue() {
         return value;
-    }
+    } // returns the value of the card, 2 through ace(11)
 
-    public void setValue(CardValue value) {
-        this.value = value;
-    }
+
 }

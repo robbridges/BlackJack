@@ -59,21 +59,11 @@ public class Player1 implements Player {
     public void setmHandsWon(int mHandsWon) {
         this.mHandsWon = mHandsWon;
     }
-    @Override
-    public String getmName() {
-        return mName;
-    }
-
-    @Override
-    public int getCurrentScore() {
-        return currentScore;
-    }
-
-
 
     public void setmName(String mName) {
         this.mName = mName;
     }
+
     public int getBankCount() {
         return bankCount;
     }
@@ -82,6 +72,11 @@ public class Player1 implements Player {
         this.bankCount = bankCount;
     }
 
+    public ArrayList<Card> getPlayer1CardList() {
+        return player1CardList;
+    }
+
+    @Override
     public int setCurrentScore(Card card) {
         currentScore += getValue(card);
         return currentScore;
@@ -161,18 +156,18 @@ public class Player1 implements Player {
             player1CardList = new ArrayList<>();
         }
     }
+
     @Override
-    public int getAceDevalueCount() {
-        return aceDevalueCount;
-    }
-    @Override
-    public void setAceDevalueCount(int aceDevalueCount) {
-        this.aceDevalueCount = aceDevalueCount;
+    public String getmName() {
+        return mName;
     }
 
-    public ArrayList<Card> getPlayer1CardList() {
-        return player1CardList;
+    @Override
+    public int getCurrentScore() {
+        return currentScore;
     }
+
+
 
 
 }

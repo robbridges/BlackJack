@@ -5,18 +5,13 @@ import CardGenerator.Card;
 import java.util.ArrayList;
 
 
-/**
- * Created by Robert on 9/27/2015.
- */
 public class Dealer implements Player {
-    int firstCardScore;
-    int secondCardScore;
     public String mName = "Dealer";
     public int mHandsWon;
     private int currentScore;
     private ArrayList<Card> dealerCards;
     Card card;
-    public int aceDevalueCount;
+
 
 
 
@@ -28,13 +23,11 @@ public class Dealer implements Player {
         this.mHandsWon = mHandsWon;
     }
 
-    public int getmScore() {
-        return mScore;
+    public ArrayList<Card> getDealerCards() {
+        return dealerCards;
     }
 
-
-
-
+    @Override
     public int setCurrentScore(Card card) {
         currentScore += getValue(card);
         return currentScore;
@@ -101,18 +94,6 @@ public class Dealer implements Player {
     }
 
     @Override
-    public int getAceDevalueCount() {
-        return aceDevalueCount;
-    }
-
-    @Override
-    public void setAceDevalueCount(int aceDevalueCount) {
-        this.aceDevalueCount = aceDevalueCount;
-
-    }
-
-
-    @Override
     public void addCardsToHand(Card card) {
         arrayListCreate();
         dealerCards.add(card);
@@ -153,10 +134,4 @@ public class Dealer implements Player {
         }
     }
 
-
-
-
-    public ArrayList<Card> getDealerCards() {
-        return dealerCards;
-    }
 }

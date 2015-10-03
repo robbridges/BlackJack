@@ -12,7 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Queue;
 
 
 /**
@@ -23,6 +23,7 @@ public class Play {
 
     public int score;
     private ArrayList<Card> cardDeck;
+    private Queue<Card> cardQueue;
     private Card card;
     private Card dealerFaceDown;
     private Dealer dealer = new Dealer();
@@ -30,70 +31,47 @@ public class Play {
     private Player1 player1 = inputPlayer.returnPlayer();
     String playerAnswer;
     String acceptableAnswer;
-    InputStreamReader isr = new InputStreamReader(System.in);
-    BufferedReader reader = new BufferedReader(isr);
-    Scanner scnr;
+
 
 
 
 
 
     public void playGame(ArrayList cardDeck) {
-        dealCards(cardDeck, 0);
-        dealCards(cardDeck, 1);
+        dealCards(cardDeck, 0, dealer);
+        dealCards(cardDeck, 1, player1);
         dealDealerFaceDown(cardDeck);
-        if (hasWon(dealer)) {
+        if (hasWon(dealer)) { // check to see player parameter has won
             System.out.println("The dealer shows 21, you lose this hand.");
         }
-        dealCards(cardDeck,3);
+        dealCards(cardDeck,3, player1);
         if (hasWon(player1)) {
             System.out.println("WINNER WINNER CHICKEN DINNER!");
         }
-        if (dealer.drawCard()) {
-            dealCards(cardDeck, 4);
-        }
+
 
 
 
     }
 
-
-
-    public void dealCards(ArrayList<Card> cardDeck, int turnNumber) {
+    public void dealCards(ArrayList<Card> cardDeck, int turnNumber, Player player) {
         card = cardDeck.get(turnNumber);
-
-        if (isEven(turnNumber)) {
-            System.out.printf("Dealer is dealt %s of %s \n", card.getValue(), card.getSuit());
-            dealer.addCardsToHand(card);
-            score = dealer.setCurrentScore(card);
-            if (dealer.isDealtAce(card)) {
-                selectAceValue(dealer);
-            }
-            cardDeck.remove(card);
-            System.out.printf("Dealer currently sits at %d \n", dealer.getCurrentScore());
-            if (hasBusted(dealer)) {
-                System.out.println("dealer has busted, you win!");
-            }
+        System.out.printf("%s is dealt the %s of %s \n", player.getmName(), card.getValue(), card.getSuit());
+        player.addCardsToHand(card); // add card to personal player hand
+        score = player.setCurrentScore(card);
+        if (player.isDealtAce(card)) {
+            selectAceValue(player);
         }
-        else {
-            System.out.printf("%s is dealt %s of %s \n",player1.getmName(), card.getValue(), card.getSuit());
-            player1.addCardsToHand(card);
-            score = player1.setCurrentScore(card);
-            if (player1.isDealtAce(card)) {
-                selectAceValue(player1);
-            }
-            cardDeck.remove(card);
-            System.out.printf("%s currently sits at %d  \n",player1.getmName(), player1.getCurrentScore());
-            if (hasBusted(player1)) {
-                System.out.println("Shucks you went over 21 and lost");
-            }
-
+        cardDeck.remove(card); // remove the card from the deck so it cannot be dealt again by a odd bug
+        System.out.printf("%s currently sits at %d \n", player.getmName(), getScore()); // display current player score
+        if (hasBusted(player)) {
+            System.out.printf("%s has busted!! \n", player.getmName()); // if score > 21
         }
-
     }
 
     public boolean hasBusted(Player player) {
-        if(player.getCurrentScore() > 21) {
+
+        if (player.getCurrentScore() > 21) { // check to see if current player has gone over 21
             return true;
         }
         else {
@@ -110,21 +88,11 @@ public class Play {
         System.out.println("The dealer deals himself a face-down Card");
         cardDeck.remove(card);
     }
-
-    public boolean isEven(int turnNumber) {
-
-        if (turnNumber % 2 == 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    public int selectAceValue(Player player)  {
+    public void selectAceValue(Player player)  {
+        score = player.getCurrentScore();
 
         acceptableAnswer = "1 11";
-        try(InputStreamReader isr2 = new InputStreamReader(System.in);
+        try( InputStreamReader isr2 = new InputStreamReader(System.in);
             BufferedReader reader2 = new BufferedReader(isr2)) {
             System.out.printf("%s is dealt an ace! do you want the value to be 1 or 11\n", player.getmName());
             playerAnswer = reader2.readLine();
@@ -136,26 +104,36 @@ public class Play {
             e.printStackTrace();
         }
         if (playerAnswer.equalsIgnoreCase("1")) {
-            player.setAceDevalueCount(1);
+
             System.out.printf("%s has devalued the ace to 1 \n",player.getmName());
             score -= 10;
         }
-        return player.getAceDevalueCount();
+
     }
 
+    public int getScore() {
+        return score;
+    }
 
-
-
-   public int getCurrentScore(Player player) {
-      return score;
-   }
-
-   public boolean hasWon(Player player) {
-       if (getCurrentScore(player) == 21) {
+    public boolean hasWon(Player player) {
+       if (player.getCurrentScore() == 21) {
            return true;
        }
        else {
            return false;
        }
-   }
+    }
+
+    public boolean isDealer(Player player) {
+        if (player.getmName() == "dealer") {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
 }
+
+
+
