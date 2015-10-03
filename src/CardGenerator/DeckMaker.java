@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+
 /**
  * Created by Robert on 9/26/2015.
  */
@@ -13,6 +14,7 @@ public class DeckMaker {
     Card card;
     CardValue value;
     CardSuit suit;
+
 
     public DeckMaker createDeck() {
         deck = new DeckMaker();
@@ -52,6 +54,8 @@ public class DeckMaker {
         return cardDeck;
 
     }
+
+
 
 
 

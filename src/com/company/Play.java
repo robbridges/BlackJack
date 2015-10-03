@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Queue;
 
 
@@ -23,7 +24,7 @@ public class Play {
 
     public int score;
     private ArrayList<Card> cardDeck;
-    private Queue<Card> cardQueue;
+    private Iterator<Card> cardIterator;
     private Card card;
     private Card dealerFaceDown;
     private Dealer dealer = new Dealer();
@@ -38,13 +39,13 @@ public class Play {
 
 
     public void playGame(ArrayList cardDeck) {
-        dealCards(cardDeck, 0, dealer);
-        dealCards(cardDeck, 1, player1);
+        dealCards(cardDeck,  dealer);
+        dealCards(cardDeck,  player1);
         dealDealerFaceDown(cardDeck);
         if (hasWon(dealer)) { // check to see player parameter has won
             System.out.println("The dealer shows 21, you lose this hand.");
         }
-        dealCards(cardDeck,3, player1);
+        dealCards(cardDeck, player1);
         if (hasWon(player1)) {
             System.out.println("WINNER WINNER CHICKEN DINNER!");
         }
@@ -54,8 +55,9 @@ public class Play {
 
     }
 
-    public void dealCards(ArrayList<Card> cardDeck, int turnNumber, Player player) {
-        card = cardDeck.get(turnNumber);
+    public void dealCards(ArrayList<Card> cardDeck,  Player player) {
+        cardIterator = cardDeck.listIterator();
+        card = cardIterator.next();
         System.out.printf("%s is dealt the %s of %s \n", player.getmName(), card.getValue(), card.getSuit());
         player.addCardsToHand(card); // add card to personal player hand
         score = player.setCurrentScore(card);
