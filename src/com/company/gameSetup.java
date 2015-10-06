@@ -7,4 +7,9 @@ import PlayerGenerator.Player;
  */
 public class gameSetup {
     Player[] playerArray;
+    int playerCount;
+
+    public void setPlayerCount(int playerCount) {
+        this.playerCount = playerCount;
+    }
 }

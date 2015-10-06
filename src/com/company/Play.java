@@ -49,6 +49,9 @@ public class Play {
             System.out.println("WINNER WINNER CHICKEN DINNER!");
         }
         playerAction(cardDeck,player1);
+        dealerDecision(cardDeck, dealer);
+        System.out.printf("Dealer shows %d \n", dealer.getCurrentScore());
+        hasBeatDealer(player1, dealer);
 
 
 
@@ -150,16 +153,36 @@ public class Play {
             }
             if (playerAnswer.equalsIgnoreCase("yes")) {
                 dealCards(cardDeck, player);
+                if (hasWon(player)) {
+                    System.out.printf("You win!!");
+                }
             } else {
-                System.out.printf("Very well %s, your final score is %d let's see how the dealer does",
+                System.out.printf("Very well %s, your final score is %d let's see how the dealer does \n",
                         player.getmName(), getScore());
             }
         }
     }
 
+    public boolean hasBeatDealer(Player player, Dealer dealer) {
+        if (player.getCurrentScore() > dealer.getCurrentScore()) {
+            System.out.printf("%s wins with a score of %d", player.getmName(), player.getCurrentScore());
+            return true;
+        }
+        else {
+            System.out.printf("Sorry %s, you lost to the dealers %d", player.getmName(), dealer.getCurrentScore());
+            return false;
+        }
+    }
 
 
-    public void dealerDecision() {
+
+
+    public void dealerDecision(ArrayList<Card> cardDeck, Dealer dealer) {
+        cardIterator = cardDeck.listIterator();
+        card = cardIterator.next();
+        while (dealer.continueToDraw()) {
+            dealCards(cardDeck, dealer);
+        }
 
 
     }

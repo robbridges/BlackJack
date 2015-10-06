@@ -139,4 +139,14 @@ public class Dealer implements Player {
         }
     }
 
+    public boolean continueToDraw() {
+        if (getCurrentScore() < 17) {
+            return true;
+        }
+        else {
+            return false;
+
+        }
+    }
+
 }
