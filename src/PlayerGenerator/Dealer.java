@@ -5,12 +5,13 @@ import CardGenerator.Card;
 import java.util.ArrayList;
 
 
-public class Dealer implements Player {
+public class Dealer implements Player, Runnable  {
     public String mName = "Dealer";
     public int mHandsWon;
     private int currentScore;
     private ArrayList<Card> dealerCards;
     Card card;
+    private boolean isDealer;
 
 
 
@@ -99,6 +100,26 @@ public class Dealer implements Player {
     }
 
     @Override
+    public void setBankCount(int bankCount) {
+
+    }
+
+    @Override
+    public int getBankCount() {
+        return 0;
+    }
+
+    @Override
+    public boolean isDealer() {
+        return true;
+    }
+
+    @Override
+    public void emptyHand() {
+        dealerCards.clear();
+    }
+
+    @Override
     public void addCardsToHand(Card card) {
         arrayListCreate();
         dealerCards.add(card);
@@ -149,4 +170,13 @@ public class Dealer implements Player {
         }
     }
 
+    public boolean returnDealer(Dealer dealer) {
+
+        return true;
+    }
+
+    @Override
+    public void run() {
+
+    }
 }

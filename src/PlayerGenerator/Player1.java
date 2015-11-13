@@ -23,9 +23,16 @@ public class Player1 implements Player {
 
 
     public Player1 returnPlayer() {
-        bankCount = 100;
+        if (bankCount == 0) {
+            bankCount = 100;
+        }
+        bankCount = getBankCount();
         mName = askPlayersName();
         return this;
+    }
+    public String  setName() {
+        mName = askPlayersName();
+        return mName;
     }
 
 
@@ -65,9 +72,16 @@ public class Player1 implements Player {
         return bankCount;
     }
 
-    public void setBankCount(int bankCount) {
-        this.bankCount = bankCount;
+    @Override
+    public boolean isDealer() {
+        return false;
     }
+
+    @Override
+    public void emptyHand() {
+        player1CardList.clear();
+    }
+
 
     public ArrayList<Card> getPlayer1CardList() {
         return player1CardList;
@@ -134,6 +148,10 @@ public class Player1 implements Player {
         this.currentScore = currentScore;
     }
 
+    @Override
+    public void setBankCount(int bankCount) {
+        this.bankCount = bankCount;
+    }
 
 
     @Override

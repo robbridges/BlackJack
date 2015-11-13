@@ -37,6 +37,14 @@ public interface Player {
 
     public void setCurrentScore(int currentScore);
 
+    public void setBankCount(int bankCount);
+
+    public int getBankCount();
+
+    public boolean isDealer();
+
+    public void emptyHand();
+
 
 
 
